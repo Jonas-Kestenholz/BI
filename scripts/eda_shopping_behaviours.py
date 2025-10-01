@@ -1,11 +1,12 @@
 # scripts/eda_shopping_behaviours.py
 # -*- coding: utf-8 -*-
 """
-EDA for Shopping Behaviours dataset
-- Loads & cleans data
-- Summary tables
-- Core visualizations
-- Saves figures and tables to /reports
+Shopping Behaviours — Sprint 2: Data Prep + EDA
+- Loads CSV
+- Cleans & coerces types
+- Descriptive stats & quality checks
+- Visualizations: distributions, counts, box/violin, scatter, correlations
+- Saves figures and tables under /reports
 """
 
 import os
@@ -14,7 +15,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sb
 
-# ---------- Paths ----------
+# -------------------------
+# Paths
+# -------------------------
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 REPORT_FIG_DIR = os.path.join(BASE_DIR, "reports", "figures")
@@ -23,16 +26,20 @@ REPORT_TAB_DIR = os.path.join(BASE_DIR, "reports", "tables")
 os.makedirs(REPORT_FIG_DIR, exist_ok=True)
 os.makedirs(REPORT_TAB_DIR, exist_ok=True)
 
-# ---------- Load ----------
-def load_data(path: str) -> pd.DataFrame:
+# -------------------------
+# Load
+# -------------------------
+def load_shopping(path: str) -> pd.DataFrame:
     df = pd.read_csv(path)
     return df
 
-# ---------- Clean ----------
+# -------------------------
+# Clean
+# -------------------------
 def clean(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
 
-    # Normalize column names -> snake_case
+    # standardize headers to snake_case
     out.columns = (
         out.columns
         .str.strip()
@@ -41,39 +48,43 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
         .str.strip("_")
     )
 
-    # Expected columns (from your description)
+    # expected columns (based on your dataset)
     # customer_id, age, gender, item_purchased, category, purchase_amount_usd,
     # location, size, color, season, review_rating, subscription_status,
-    # shipping_type, discount_applied, promo_code_used,
-    # previous_purchases, payment_method, frequency_of_purchases
+    # shipping_type, discount_applied, promo_code_used, previous_purchases,
+    # payment_method, frequency_of_purchases
 
-    # Coerce dtypes where sensible
-    numeric_like = ["age", "purchase_amount_usd", "review_rating", "previous_purchases"]
-    for c in numeric_like:
+    # coerce numeric
+    for col in ["age", "purchase_amount_usd", "review_rating", "previous_purchases"]:
+        if col in out.columns:
+            out[col] = pd.to_numeric(out[col], errors="coerce")
+
+    # strip whitespace in strings
+    for col in out.select_dtypes(include=["object"]).columns:
+        out[col] = out[col].astype(str).str.strip()
+
+    # normalize simple yes/no fields
+    normalize_yes_no = {
+        "discount_applied": {"y": "Yes", "n": "No"},
+        "promo_code_used": {"y": "Yes", "n": "No"},
+        "subscription_status": {"active": "Yes", "inactive": "No"}
+    }
+    for c, mapping in normalize_yes_no.items():
         if c in out.columns:
-            out[c] = pd.to_numeric(out[c], errors="coerce")
+            out[c] = out[c].str.title()
+            out[c] = out[c].replace(mapping)
 
-    # Trim strings
-    for c in out.select_dtypes(include=["object"]).columns:
-        out[c] = out[c].astype(str).str.strip()
-
-    # Handle obvious typos (optional; adjust as needed)
-    if "discount_applied" in out.columns:
-        out["discount_applied"] = out["discount_applied"].str.title().replace({"Y":"Yes","N":"No"})
-    if "promo_code_used" in out.columns:
-        out["promo_code_used"] = out["promo_code_used"].str.title().replace({"Y":"Yes","N":"No"})
-    if "subscription_status" in out.columns:
-        out["subscription_status"] = out["subscription_status"].str.title().replace({"Active":"Yes","Inactive":"No"})
-
-    # Drop full-NA rows and duplicates
+    # drop fully-empty rows and exact duplicates
     out = out.dropna(how="all").drop_duplicates()
 
-    # Simple missing treatment (document decisions)
-    out = out.dropna(subset=["purchase_amount_usd"])  # cannot analyze spend without this
+    # key column we need for spend analysis
+    out = out.dropna(subset=["purchase_amount_usd"])
 
     return out
 
-# ---------- Helpers ----------
+# -------------------------
+# Utilities
+# -------------------------
 def savefig(name: str):
     plt.tight_layout()
     path = os.path.join(REPORT_FIG_DIR, name)
@@ -86,28 +97,38 @@ def savetab(df: pd.DataFrame, name: str):
     df.to_csv(path, index=False)
     print(f"[Table]  {path}")
 
-# ---------- EDA Tables ----------
-def basic_profile(df: pd.DataFrame):
-    shape = pd.DataFrame({"rows":[df.shape[0]], "cols":[df.shape[1]]})
-    desc_num = df.select_dtypes(include=[np.number]).describe().reset_index()
-    miss = df.isnull().sum().reset_index().rename(columns={"index":"column", 0:"missing"})
-    nunique = df.nunique().reset_index().rename(columns={"index":"column", 0:"nunique"})
-
+# -------------------------
+# Quality + Profile Tables
+# -------------------------
+def dataset_profile(df: pd.DataFrame):
+    # basic shape
+    shape = pd.DataFrame({"rows": [df.shape[0]], "cols": [df.shape[1]]})
     savetab(shape, "shape.csv")
-    savetab(desc_num, "numeric_describe.csv")
-    savetab(miss, "missing_counts.csv")
+
+    # dtypes
+    dtypes = df.dtypes.reset_index()
+    dtypes.columns = ["column", "dtype"]
+    savetab(dtypes, "dtypes.csv")
+
+    # missing
+    missing = df.isnull().sum().reset_index()
+    missing.columns = ["column", "missing"]
+    savetab(missing, "missing_counts.csv")
+
+    # nunique
+    nunique = df.nunique().reset_index()
+    nunique.columns = ["column", "unique_values"]
     savetab(nunique, "nunique_counts.csv")
 
-# ---------- Categorical Orders (optional) ----------
-FREQ_ORDER = [
-    "Daily", "Weekly", "Fortnightly", "Bi-Weekly", "Monthly", "Quarterly", "Annually"
-]
-def ordered_cat(series: pd.Series, order: list):
-    present = [x for x in order if x in series.unique().tolist()]
-    return pd.Categorical(series, categories=present, ordered=True)
+    # numeric describe
+    numdesc = df.select_dtypes(include=[np.number]).describe().T.reset_index()
+    numdesc = numdesc.rename(columns={"index": "column"})
+    savetab(numdesc, "numeric_describe.csv")
 
-# ---------- Plots ----------
-def plot_numeric_dist(df: pd.DataFrame, col: str, bins: int = 20):
+# -------------------------
+# Plot helpers
+# -------------------------
+def plot_numeric_dist(df: pd.DataFrame, col: str, bins: int = 25):
     plt.figure(figsize=(8,5))
     sb.histplot(df[col].dropna(), bins=bins, kde=True)
     plt.title(f"Distribution of {col}")
@@ -115,46 +136,50 @@ def plot_numeric_dist(df: pd.DataFrame, col: str, bins: int = 20):
     plt.ylabel("Count")
     savefig(f"dist__{col}.png")
 
-def plot_count(df: pd.DataFrame, col: str, top_n: int = None, orient="v"):
-    vc = df[col].value_counts(dropna=False)
+def plot_count(df: pd.DataFrame, col: str, top_n: int = None, orient: str = "v"):
+    counts = df[col].value_counts(dropna=False)
     if top_n:
-        vc = vc.head(top_n)
+        counts = counts.head(top_n)
+
     plt.figure(figsize=(10,5))
     if orient == "v":
-        sb.barplot(x=vc.index, y=vc.values)
+        sb.barplot(x=counts.index, y=counts.values)
         plt.xticks(rotation=45, ha="right")
+        plt.xlabel(col)
+        plt.ylabel("Count")
     else:
-        sb.barplot(y=vc.index, x=vc.values)
-    plt.title(f"{col} count")
-    plt.xlabel(col if orient=="v" else "Count")
-    plt.ylabel("Count" if orient=="v" else col)
+        sb.barplot(y=counts.index, x=counts.values)
+        plt.ylabel(col)
+        plt.xlabel("Count")
+    plt.title(f"{col} counts")
     savefig(f"count__{col}.png")
 
-def plot_box_by_cat(df: pd.DataFrame, num: str, cat: str, rotate_x=False):
+def plot_box_by_cat(df: pd.DataFrame, y: str, x: str, rotate_x: bool = False):
     plt.figure(figsize=(10,5))
-    sb.boxplot(data=df, x=cat, y=num)
+    sb.boxplot(data=df, x=x, y=y)
     if rotate_x:
         plt.xticks(rotation=45, ha="right")
-    plt.title(f"{num} by {cat}")
-    savefig(f"box__{num}__by__{cat}.png")
+    plt.title(f"{y} by {x}")
+    savefig(f"box__{y}__by__{x}.png")
 
-def plot_violin_by_cat(df: pd.DataFrame, num: str, cat: str, rotate_x=False):
+def plot_violin_by_cat(df: pd.DataFrame, y: str, x: str, rotate_x: bool = False):
     plt.figure(figsize=(10,5))
-    sb.violinplot(data=df, x=cat, y=num, cut=0, inner="quartile")
+    sb.violinplot(data=df, x=x, y=y, cut=0, inner="quartile")
     if rotate_x:
         plt.xticks(rotation=45, ha="right")
-    plt.title(f"{num} by {cat} (violin)")
-    savefig(f"violin__{num}__by__{cat}.png")
+    plt.title(f"{y} by {x} (violin)")
+    savefig(f"violin__{y}__by__{x}.png")
 
 def plot_scatter(df: pd.DataFrame, x: str, y: str, hue: str = None):
     plt.figure(figsize=(8,5))
     sb.scatterplot(data=df, x=x, y=y, hue=hue, alpha=0.6)
-    plt.title(f"{y} vs {x}" + (f" by {hue}" if hue else ""))
-    savefig(f"scatter__{y}_vs_{x}" + (f"__by__{hue}.png" if hue else ".png"))
+    title = f"{y} vs {x}" + (f" by {hue}" if hue else "")
+    plt.title(title)
+    savefig(("scatter__" + y + "_vs_" + x + (f"__by__{hue}" if hue else "") + ".png"))
 
 def plot_corr_heatmap(df: pd.DataFrame):
     num = df.select_dtypes(include=[np.number])
-    if num.shape[1] == 0:
+    if num.empty:
         return
     corr = num.corr(numeric_only=True)
     plt.figure(figsize=(10,7))
@@ -163,7 +188,6 @@ def plot_corr_heatmap(df: pd.DataFrame):
     savefig("corr_heatmap_numeric.png")
 
 def plot_stacked_share(df: pd.DataFrame, cat_main: str, cat_sub: str, top_n: int = 8):
-    # Top categories for main
     top = df[cat_main].value_counts().head(top_n).index
     d = df[df[cat_main].isin(top)]
     ct = pd.crosstab(d[cat_main], d[cat_sub], normalize="index")
@@ -174,84 +198,98 @@ def plot_stacked_share(df: pd.DataFrame, cat_main: str, cat_sub: str, top_n: int
     plt.legend(title=cat_sub, bbox_to_anchor=(1.02, 1), loc="upper left")
     savefig(f"stacked_share__{cat_main}__{cat_sub}.png")
 
-# ---------- Run EDA ----------
-def run_eda():
+# -------------------------
+# Optional: Light FE for later Sprints
+# -------------------------
+def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
+    out = df.copy()
+
+    # spending bands (for classification later)
+    if "purchase_amount_usd" in out.columns:
+        out["spend_band"] = pd.qcut(out["purchase_amount_usd"], 4, labels=["Low","Mid","High","Top"])
+
+    # freq ordering if present
+    if "frequency_of_purchases" in out.columns:
+        order = ["Daily","Weekly","Fortnightly","Bi-Weekly","Monthly","Quarterly","Annually"]
+        present = [x for x in order if x in out["frequency_of_purchases"].unique().tolist()]
+        out["frequency_of_purchases"] = pd.Categorical(out["frequency_of_purchases"], categories=present, ordered=True)
+
+    # binary maps
+    for c in ["discount_applied", "promo_code_used", "subscription_status"]:
+        if c in out.columns:
+            out[c + "_bin"] = out[c].map({"Yes":1, "No":0})
+
+    return out
+
+# -------------------------
+# Run EDA
+# -------------------------
+def run():
+    sb.set(style="whitegrid", context="talk")
+
     path = os.path.join(DATA_DIR, "shopping_trends.csv")
-    df = load_data(path)
+    df = load_shopping(path)
     df = clean(df)
+    df = engineer_features(df)
 
-    basic_profile(df)
+    # profile tables
+    dataset_profile(df)
 
-    # Distributions (numeric)
+    # distributions
     for col in ["age", "purchase_amount_usd", "review_rating", "previous_purchases"]:
         if col in df.columns:
             plot_numeric_dist(df, col)
 
-    # Counts (categorical)
+    # categorical counts
     cat_cols = [
-        "gender","category","item_purchased","location","size","color","season",
-        "subscription_status","shipping_type","discount_applied","promo_code_used",
-        "payment_method","frequency_of_purchases"
+        "gender", "category", "item_purchased", "location", "size", "color", "season",
+        "subscription_status", "shipping_type", "discount_applied", "promo_code_used",
+        "payment_method", "frequency_of_purchases"
     ]
     for c in [x for x in cat_cols if x in df.columns]:
-        # long lists better as horizontal
         orient = "h" if df[c].nunique() > 8 else "v"
         plot_count(df, c, orient=orient)
 
-    # Relationships to purchase amount
+    # purchase amount vs key categories
     y = "purchase_amount_usd"
     for c in ["gender","category","season","subscription_status","discount_applied",
               "promo_code_used","payment_method","frequency_of_purchases","location","size","color"]:
         if c in df.columns and y in df.columns:
             rotate = df[c].nunique() > 8
             plot_box_by_cat(df, y, c, rotate_x=rotate)
-            # violin also nice for distributions
             if df[c].nunique() <= 12:
                 plot_violin_by_cat(df, y, c, rotate_x=rotate)
 
-    # Age vs spend (+ hue)
-    if set(["age", y]).issubset(df.columns):
-        plot_scatter(df, "age", y)
-        if "gender" in df.columns:
-            plot_scatter(df, "age", y, hue="gender")
-        if "subscription_status" in df.columns:
-            plot_scatter(df, "age", y, hue="subscription_status")
-
-    # Correlation heatmap
+    # numeric correlations
     plot_corr_heatmap(df)
 
-    # Stacked shares: payment method within season; discount within category
+    # stacked shares: useful BI views
     if "season" in df.columns and "payment_method" in df.columns:
         plot_stacked_share(df, "season", "payment_method", top_n=8)
     if "category" in df.columns and "discount_applied" in df.columns:
         plot_stacked_share(df, "category", "discount_applied", top_n=12)
 
-    # Export a couple of useful summary tables
-    # Average spend by key dims
+    # summary tables: avg spend by dimension + top items by revenue
     pivots = []
-    for c in ["category","season","gender","subscription_status","discount_applied","promo_code_used","payment_method","frequency_of_purchases"]:
+    for c in ["category","season","gender","subscription_status","discount_applied",
+              "promo_code_used","payment_method","frequency_of_purchases"]:
         if c in df.columns:
             piv = df.groupby(c)["purchase_amount_usd"].agg(["count","mean","median","std"]).reset_index()
-            piv["dimension"] = c
+            piv.insert(0, "dimension", c)
             pivots.append(piv)
     if pivots:
-        summary = pd.concat(pivots, ignore_index=True)
-        savetab(summary, "avg_spend_by_dimensions.csv")
+        spend_summary = pd.concat(pivots, ignore_index=True)
+        savetab(spend_summary, "avg_spend_by_dimension.csv")
 
-    # Top items by revenue
     if {"item_purchased","purchase_amount_usd"}.issubset(df.columns):
-        top_items = (
-            df.groupby("item_purchased")["purchase_amount_usd"]
-              .sum()
-              .sort_values(ascending=False)
-              .reset_index()
-              .rename(columns={"purchase_amount_usd":"revenue"})
-        )
+        top_items = (df.groupby("item_purchased")["purchase_amount_usd"]
+                       .sum()
+                       .sort_values(ascending=False)
+                       .reset_index()
+                       .rename(columns={"purchase_amount_usd":"revenue"}))
         savetab(top_items, "top_items_by_revenue.csv")
 
-    print("EDA complete.")
+    print("Sprint 2 EDA complete.")
 
 if __name__ == "__main__":
-    # Set seaborn theme like your previous project
-    sb.set(style="whitegrid", context="talk")
-    run_eda()
+    run()
