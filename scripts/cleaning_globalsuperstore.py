@@ -6,10 +6,10 @@ import seaborn as sns
 
 data = load_excel("~/Desktop/BIexam/data/Global Superstore.xls")
 
-kolonnenavne = data.columns.tolist()
+colnames = data.columns.tolist()
 
 print(data.head())
-print(kolonnenavne)
+print(colnames)
 print(data.shape)
 
 #We can see on the data that some of the columns are not relevant for our analysis, so we remove them
@@ -100,7 +100,6 @@ binary_columns = unique_counts[unique_counts == 2].index
 object_columns = data.select_dtypes(include=['object']).columns
 
 #We check the columns for unique values and can see that some of them have alot of unique values that wouldnt make sense to do one-hot encoding on
-print("Kardinalitet (Antal unikke værdier) før One-Hot Encoding:")
 print(data[object_columns].nunique().sort_values(ascending=False))
 
 #We remove the columns with too many unique values
