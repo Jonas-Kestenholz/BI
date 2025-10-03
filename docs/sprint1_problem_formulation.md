@@ -4,7 +4,7 @@
 ---
 
 ## Problem Statement & Purpose  
-Retail businesses face the challenge of understanding diverse customer behaviours to improve marketing strategies, inventory management, and customer loyalty. With the *Shopping Behaviours* dataset, we aim to analyze demographic, transactional, and behavioural features of customers to uncover patterns that influence purchasing behaviour.  
+Retail businesses face the challenge of understanding diverse customer behaviours to improve marketing strategies, inventory management, and customer loyalty. With *Shopping Behaviour* datasets, we aim to analyze demographic, transactional, and behavioural features of customers to uncover patterns that influence purchasing behaviour.  
 
 The project will focus on predicting customer spending levels, identifying loyalty indicators (like subscription status and purchase frequency), and segmenting customers into meaningful groups based on behaviour. These insights can directly support business intelligence for personalized marketing, better product recommendations, and customer retention strategies.  
 
@@ -15,7 +15,8 @@ The project will focus on predicting customer spending levels, identifying loyal
 2. Can we predict high-value vs. low-value customers based on their transaction history and behaviour?  
 3. How do discounts, promo codes, and subscription status impact customer spending and retention?  
 4. Can we cluster customers into meaningful segments (e.g., “bargain hunters”, “loyal subscribers”, “occasional big spenders”)?  
-5. What actionable insights can these clusters and predictions provide for marketing and inventory planning?  
+5. What actionable insights can these clusters and predictions provide for marketing and inventory planning?
+
 
 ---
 
@@ -37,14 +38,14 @@ This project explores shopping behaviours to identify the drivers of customer sp
 | Sprint | Deliverables |
 ----------------------
 | Sprint 1 | Problem statement, hypotheses, project setup (GitHub repo, `.md` file, environment). 
-| Sprint 2 | Load dataset, clean missing values/outliers, exploratory data analysis (visualizations of age, gender, categories, purchase behaviour). 
+| Sprint 2 | Load dataset, clean missing values/outliers, exploratory data analysis (visualizations of age, gender, categories, purchase behaviour). Make the data ready for machine learning
 | Sprint 3 | Predictive modelling (classification of high vs. low-value customers, regression for purchase amount, clustering for segments). 
 | Sprint 4 | BI dashboard/web app with insights: interactive filters by demographics, customer segments, and predictions; recommendations for business application.
 
 ## Environment
 
 **Environment & Tools**
-- Python: pandas, scikit-learn, seaborn, matplotlib  
+- Python: pandas, scikit-learn, seaborn, matplotlib, numpy, scipy.stats  
 - Jupyter Notebooks for analysis  
 - Streamlit or Dash for BI dashboard  
 - GitHub for version control & documentation  
