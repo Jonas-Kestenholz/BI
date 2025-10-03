@@ -130,6 +130,12 @@ plot.title('Distribution of Sales (After Log1p Transformation)')
 plot.xlabel('Sales (Log Transformed)')
 plot.show()
 
+plot.figure(figsize=(8, 6))
+sns.histplot(data['ShippingCost_Log'], kde=True)
+plot.title('Distribution of ShippingCost (After Log1p Transformation)')
+plot.xlabel('Shipping (Log Transformed)')
+plot.show()
+
 #I remove the untransformed columns to avoid multicollinearity
 data = data.drop(columns=['Profit', 'Sales', 'Shipping Cost'])
 
