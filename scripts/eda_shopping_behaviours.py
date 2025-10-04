@@ -1,12 +1,13 @@
 # scripts/eda_shopping_behaviours.py
 # -*- coding: utf-8 -*-
 """
-Shopping Behaviours — Sprint 2: Data Prep + EDA
+Shopping Behaviours — Sprint 2: Data Prep + EDA (+ One-Hot Encoding)
 - Loads CSV
 - Cleans & coerces types
 - Descriptive stats & quality checks
 - Visualizations: distributions, counts, box/violin, scatter, correlations
 - Saves figures and tables under /reports
+- Saves cleaned + one-hot encoded datasets under /data/processed
 """
 
 import os
@@ -20,11 +21,18 @@ import seaborn as sb
 # -------------------------
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
+PROC_DIR = os.path.join(DATA_DIR, "processed")  # <-- was missing
 REPORT_FIG_DIR = os.path.join(BASE_DIR, "reports", "figures")
 REPORT_TAB_DIR = os.path.join(BASE_DIR, "reports", "tables")
 
 os.makedirs(REPORT_FIG_DIR, exist_ok=True)
 os.makedirs(REPORT_TAB_DIR, exist_ok=True)
+os.makedirs(PROC_DIR, exist_ok=True)
+
+RAW_PATH          = os.path.join(DATA_DIR, "shopping_trends.csv")
+CLEAN_PATH        = os.path.join(PROC_DIR, "shopping_trends_clean.csv")
+CLEAN_ENC_PATH    = os.path.join(PROC_DIR, "shopping_trends_clean_onehot.csv")
+CLEAN_ENC_PARQUET = os.path.join(PROC_DIR, "shopping_trends_clean_onehot.parquet")
 
 # -------------------------
 # Load
@@ -47,12 +55,6 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
         .str.replace(r"[^a-z0-9]+", "_", regex=True)
         .str.strip("_")
     )
-
-    # expected columns (based on your dataset)
-    # customer_id, age, gender, item_purchased, category, purchase_amount_usd,
-    # location, size, color, season, review_rating, subscription_status,
-    # shipping_type, discount_applied, promo_code_used, previous_purchases,
-    # payment_method, frequency_of_purchases
 
     # coerce numeric
     for col in ["age", "purchase_amount_usd", "review_rating", "previous_purchases"]:
@@ -78,7 +80,8 @@ def clean(df: pd.DataFrame) -> pd.DataFrame:
     out = out.dropna(how="all").drop_duplicates()
 
     # key column we need for spend analysis
-    out = out.dropna(subset=["purchase_amount_usd"])
+    if "purchase_amount_usd" in out.columns:
+        out = out.dropna(subset=["purchase_amount_usd"])
 
     return out
 
@@ -100,30 +103,32 @@ def savetab(df: pd.DataFrame, name: str):
 # -------------------------
 # Quality + Profile Tables
 # -------------------------
-def dataset_profile(df: pd.DataFrame):
+def dataset_profile(df: pd.DataFrame, prefix: str = ""):
+    p = (lambda n: f"{prefix}{n}") if prefix else (lambda n: n)
+
     # basic shape
     shape = pd.DataFrame({"rows": [df.shape[0]], "cols": [df.shape[1]]})
-    savetab(shape, "shape.csv")
+    savetab(shape, p("shape.csv"))
 
     # dtypes
     dtypes = df.dtypes.reset_index()
     dtypes.columns = ["column", "dtype"]
-    savetab(dtypes, "dtypes.csv")
+    savetab(dtypes, p("dtypes.csv"))
 
     # missing
     missing = df.isnull().sum().reset_index()
     missing.columns = ["column", "missing"]
-    savetab(missing, "missing_counts.csv")
+    savetab(missing, p("missing_counts.csv"))
 
     # nunique
     nunique = df.nunique().reset_index()
     nunique.columns = ["column", "unique_values"]
-    savetab(nunique, "nunique_counts.csv")
+    savetab(nunique, p("nunique_counts.csv"))
 
     # numeric describe
     numdesc = df.select_dtypes(include=[np.number]).describe().T.reset_index()
     numdesc = numdesc.rename(columns={"index": "column"})
-    savetab(numdesc, "numeric_describe.csv")
+    savetab(numdesc, p("numeric_describe.csv"))
 
 # -------------------------
 # Plot helpers
@@ -221,19 +226,64 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
 
     return out
 
+def one_hot_encode(
+    df: pd.DataFrame,
+    cols: list[str] | None = None,
+    drop_first: bool = True,
+    max_cardinality: int = 100,
+    dummy_na: bool = False,
+    exclude: list[str] | None = None,   # NEW
+) -> tuple[pd.DataFrame, list[str], list[str]]:
+    """
+    One-hot encodes categorical columns.
+    - Automatically detects object/category/bool columns if cols=None.
+    - Skips columns with cardinality > max_cardinality to avoid explosion.
+    - Skips any columns explicitly listed in exclude.
+    Returns: (encoded_df, encoded_columns, skipped_columns)
+    """
+    work = df.copy()
+
+    if cols is None:
+        cat_cols = list(work.select_dtypes(include=["object", "category", "bool"]).columns)
+    else:
+        cat_cols = [c for c in cols if c in work.columns]
+
+    if exclude:
+        cat_cols = [c for c in cat_cols if c not in exclude]
+
+    encoded_cols, skipped = [], []
+    safe_cols = []
+    for c in cat_cols:
+        card = work[c].nunique(dropna=True)
+        if card <= max_cardinality:
+            safe_cols.append(c)
+        else:
+            skipped.append(c)
+
+    if safe_cols:
+        work = pd.get_dummies(work, columns=safe_cols, drop_first=drop_first, dummy_na=dummy_na)
+        for c in safe_cols:
+            pref = f"{c}_" if not drop_first else f"{c}_"
+            new_cols = [col for col in work.columns if col.startswith(pref)]
+            encoded_cols.extend(new_cols)
+
+    return work, encoded_cols, skipped
 # -------------------------
 # Run EDA
 # -------------------------
 def run():
     sb.set(style="whitegrid", context="talk")
 
-    path = os.path.join(DATA_DIR, "shopping_trends.csv")
-    df = load_shopping(path)
+    df = load_shopping(RAW_PATH)
     df = clean(df)
     df = engineer_features(df)
 
-    # profile tables
-    dataset_profile(df)
+    # Save the cleaned (pre-encoding) file
+    df.to_csv(CLEAN_PATH, index=False)
+    print(f"[Saved] Cleaned dataset -> {CLEAN_PATH}")
+
+    # profile tables on cleaned data
+    dataset_profile(df, prefix="clean_")
 
     # distributions
     for col in ["age", "purchase_amount_usd", "review_rating", "previous_purchases"]:
@@ -273,23 +323,53 @@ def run():
     pivots = []
     for c in ["category","season","gender","subscription_status","discount_applied",
               "promo_code_used","payment_method","frequency_of_purchases"]:
-        if c in df.columns:
-            piv = df.groupby(c)["purchase_amount_usd"].agg(["count","mean","median","std"]).reset_index()
+        if c in df.columns and y in df.columns:
+            piv = df.groupby(c)[y].agg(["count","mean","median","std"]).reset_index()
             piv.insert(0, "dimension", c)
             pivots.append(piv)
     if pivots:
         spend_summary = pd.concat(pivots, ignore_index=True)
         savetab(spend_summary, "avg_spend_by_dimension.csv")
 
-    if {"item_purchased","purchase_amount_usd"}.issubset(df.columns):
-        top_items = (df.groupby("item_purchased")["purchase_amount_usd"]
+    if {"item_purchased", y}.issubset(df.columns):
+        top_items = (df.groupby("item_purchased")[y]
                        .sum()
                        .sort_values(ascending=False)
                        .reset_index()
-                       .rename(columns={"purchase_amount_usd":"revenue"}))
+                       .rename(columns={y:"revenue"}))
         savetab(top_items, "top_items_by_revenue.csv")
 
-    print("Sprint 2 EDA complete.")
+    # -------- ONE-HOT ENCODE & SAVE (NEW) --------
+    encoded_df, encoded_cols, skipped_cols = one_hot_encode(
+        df,
+        cols=None,              # auto-detect categorical columns
+        drop_first=True,        # avoid multicollinearity
+        max_cardinality=100,    # skip monster columns; adjust if needed
+        dummy_na=False
+    )
+
+    encoded_df.to_csv(CLEAN_ENC_PATH, index=False)
+    try:
+        encoded_df.to_parquet(CLEAN_ENC_PARQUET, index=False)
+        print(f"[Saved] One-hot encoded dataset -> {CLEAN_ENC_PATH} / {CLEAN_ENC_PARQUET}")
+    except Exception:
+        print(f"[Saved] One-hot encoded dataset -> {CLEAN_ENC_PATH}")
+
+    # Save a quick report of what happened
+    report = pd.DataFrame({
+        "encoded_columns_count": [len(encoded_cols)],
+        "skipped_high_cardinality_count": [len(skipped_cols)]
+    })
+    savetab(report, "onehot_summary.csv")
+
+    if skipped_cols:
+        skipped_tbl = pd.DataFrame({"skipped_columns": skipped_cols})
+        savetab(skipped_tbl, "onehot_skipped_columns.csv")
+
+    # Profile tables on encoded data (optional but handy)
+    dataset_profile(encoded_df, prefix="onehot_")
+
+    print("Sprint 2 EDA complete (with one-hot encoding).")
 
 if __name__ == "__main__":
     run()

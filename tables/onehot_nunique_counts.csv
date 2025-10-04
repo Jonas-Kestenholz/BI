@@ -1,0 +1,142 @@
+column,unique_values
+customer_id,3900
+age,53
+purchase_amount_usd,81
+review_rating,26
+previous_purchases,50
+discount_applied_bin,2
+promo_code_used_bin,2
+subscription_status_bin,2
+gender_Male,2
+item_purchased_Belt,2
+item_purchased_Blouse,2
+item_purchased_Boots,2
+item_purchased_Coat,2
+item_purchased_Dress,2
+item_purchased_Gloves,2
+item_purchased_Handbag,2
+item_purchased_Hat,2
+item_purchased_Hoodie,2
+item_purchased_Jacket,2
+item_purchased_Jeans,2
+item_purchased_Jewelry,2
+item_purchased_Pants,2
+item_purchased_Sandals,2
+item_purchased_Scarf,2
+item_purchased_Shirt,2
+item_purchased_Shoes,2
+item_purchased_Shorts,2
+item_purchased_Skirt,2
+item_purchased_Sneakers,2
+item_purchased_Socks,2
+item_purchased_Sunglasses,2
+item_purchased_Sweater,2
+item_purchased_T-shirt,2
+category_Clothing,2
+category_Footwear,2
+category_Outerwear,2
+location_Alaska,2
+location_Arizona,2
+location_Arkansas,2
+location_California,2
+location_Colorado,2
+location_Connecticut,2
+location_Delaware,2
+location_Florida,2
+location_Georgia,2
+location_Hawaii,2
+location_Idaho,2
+location_Illinois,2
+location_Indiana,2
+location_Iowa,2
+location_Kansas,2
+location_Kentucky,2
+location_Louisiana,2
+location_Maine,2
+location_Maryland,2
+location_Massachusetts,2
+location_Michigan,2
+location_Minnesota,2
+location_Mississippi,2
+location_Missouri,2
+location_Montana,2
+location_Nebraska,2
+location_Nevada,2
+location_New Hampshire,2
+location_New Jersey,2
+location_New Mexico,2
+location_New York,2
+location_North Carolina,2
+location_North Dakota,2
+location_Ohio,2
+location_Oklahoma,2
+location_Oregon,2
+location_Pennsylvania,2
+location_Rhode Island,2
+location_South Carolina,2
+location_South Dakota,2
+location_Tennessee,2
+location_Texas,2
+location_Utah,2
+location_Vermont,2
+location_Virginia,2
+location_Washington,2
+location_West Virginia,2
+location_Wisconsin,2
+location_Wyoming,2
+size_M,2
+size_S,2
+size_XL,2
+color_Black,2
+color_Blue,2
+color_Brown,2
+color_Charcoal,2
+color_Cyan,2
+color_Gold,2
+color_Gray,2
+color_Green,2
+color_Indigo,2
+color_Lavender,2
+color_Magenta,2
+color_Maroon,2
+color_Olive,2
+color_Orange,2
+color_Peach,2
+color_Pink,2
+color_Purple,2
+color_Red,2
+color_Silver,2
+color_Teal,2
+color_Turquoise,2
+color_Violet,2
+color_White,2
+color_Yellow,2
+season_Spring,2
+season_Summer,2
+season_Winter,2
+subscription_status_Yes,2
+payment_method_Cash,2
+payment_method_Credit Card,2
+payment_method_Debit Card,2
+payment_method_PayPal,2
+payment_method_Venmo,2
+shipping_type_Express,2
+shipping_type_Free Shipping,2
+shipping_type_Next Day Air,2
+shipping_type_Standard,2
+shipping_type_Store Pickup,2
+discount_applied_Yes,2
+promo_code_used_Yes,2
+preferred_payment_method_Cash,2
+preferred_payment_method_Credit Card,2
+preferred_payment_method_Debit Card,2
+preferred_payment_method_PayPal,2
+preferred_payment_method_Venmo,2
+frequency_of_purchases_Fortnightly,2
+frequency_of_purchases_Bi-Weekly,2
+frequency_of_purchases_Monthly,2
+frequency_of_purchases_Quarterly,2
+frequency_of_purchases_Annually,2
+spend_band_Mid,2
+spend_band_High,2
+spend_band_Top,2

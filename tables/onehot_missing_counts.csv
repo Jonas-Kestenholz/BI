@@ -1,0 +1,142 @@
+column,missing
+customer_id,0
+age,0
+purchase_amount_usd,0
+review_rating,0
+previous_purchases,0
+discount_applied_bin,0
+promo_code_used_bin,0
+subscription_status_bin,0
+gender_Male,0
+item_purchased_Belt,0
+item_purchased_Blouse,0
+item_purchased_Boots,0
+item_purchased_Coat,0
+item_purchased_Dress,0
+item_purchased_Gloves,0
+item_purchased_Handbag,0
+item_purchased_Hat,0
+item_purchased_Hoodie,0
+item_purchased_Jacket,0
+item_purchased_Jeans,0
+item_purchased_Jewelry,0
+item_purchased_Pants,0
+item_purchased_Sandals,0
+item_purchased_Scarf,0
+item_purchased_Shirt,0
+item_purchased_Shoes,0
+item_purchased_Shorts,0
+item_purchased_Skirt,0
+item_purchased_Sneakers,0
+item_purchased_Socks,0
+item_purchased_Sunglasses,0
+item_purchased_Sweater,0
+item_purchased_T-shirt,0
+category_Clothing,0
+category_Footwear,0
+category_Outerwear,0
+location_Alaska,0
+location_Arizona,0
+location_Arkansas,0
+location_California,0
+location_Colorado,0
+location_Connecticut,0
+location_Delaware,0
+location_Florida,0
+location_Georgia,0
+location_Hawaii,0
+location_Idaho,0
+location_Illinois,0
+location_Indiana,0
+location_Iowa,0
+location_Kansas,0
+location_Kentucky,0
+location_Louisiana,0
+location_Maine,0
+location_Maryland,0
+location_Massachusetts,0
+location_Michigan,0
+location_Minnesota,0
+location_Mississippi,0
+location_Missouri,0
+location_Montana,0
+location_Nebraska,0
+location_Nevada,0
+location_New Hampshire,0
+location_New Jersey,0
+location_New Mexico,0
+location_New York,0
+location_North Carolina,0
+location_North Dakota,0
+location_Ohio,0
+location_Oklahoma,0
+location_Oregon,0
+location_Pennsylvania,0
+location_Rhode Island,0
+location_South Carolina,0
+location_South Dakota,0
+location_Tennessee,0
+location_Texas,0
+location_Utah,0
+location_Vermont,0
+location_Virginia,0
+location_Washington,0
+location_West Virginia,0
+location_Wisconsin,0
+location_Wyoming,0
+size_M,0
+size_S,0
+size_XL,0
+color_Black,0
+color_Blue,0
+color_Brown,0
+color_Charcoal,0
+color_Cyan,0
+color_Gold,0
+color_Gray,0
+color_Green,0
+color_Indigo,0
+color_Lavender,0
+color_Magenta,0
+color_Maroon,0
+color_Olive,0
+color_Orange,0
+color_Peach,0
+color_Pink,0
+color_Purple,0
+color_Red,0
+color_Silver,0
+color_Teal,0
+color_Turquoise,0
+color_Violet,0
+color_White,0
+color_Yellow,0
+season_Spring,0
+season_Summer,0
+season_Winter,0
+subscription_status_Yes,0
+payment_method_Cash,0
+payment_method_Credit Card,0
+payment_method_Debit Card,0
+payment_method_PayPal,0
+payment_method_Venmo,0
+shipping_type_Express,0
+shipping_type_Free Shipping,0
+shipping_type_Next Day Air,0
+shipping_type_Standard,0
+shipping_type_Store Pickup,0
+discount_applied_Yes,0
+promo_code_used_Yes,0
+preferred_payment_method_Cash,0
+preferred_payment_method_Credit Card,0
+preferred_payment_method_Debit Card,0
+preferred_payment_method_PayPal,0
+preferred_payment_method_Venmo,0
+frequency_of_purchases_Fortnightly,0
+frequency_of_purchases_Bi-Weekly,0
+frequency_of_purchases_Monthly,0
+frequency_of_purchases_Quarterly,0
+frequency_of_purchases_Annually,0
+spend_band_Mid,0
+spend_band_High,0
+spend_band_Top,0

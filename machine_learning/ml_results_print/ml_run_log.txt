@@ -1,0 +1,607 @@
+Correlation table with target 'Profit_YJ' saved to superstore_profit_correlation_sorted.csv
+Heatmap for Profit_YJ saved to superstore_profit_correlation_heatmap.png
+Correlation table with target 'Profit_YJ' saved to superstore_profit_correlation_sorted.csv
+Heatmap for Profit_YJ saved to superstore_profit_correlation_heatmap.png
+ERROR: DataFrame is None or target column 'purchase_amount_usd' not found for correlation analysis.
+ERROR: Correlation Series is None for heatmap generation of purchase_amount_usd.
+Correlation table with target 'Profit_YJ' saved to superstore_profit_correlation_sorted.csv
+Heatmap for Profit_YJ saved to superstore_profit_correlation_heatmap.png
+Correlation table with target 'purchase_amount_usd' saved to shopping_purchase_correlation_sorted.csv
+Heatmap for purchase_amount_usd saved to shopping_purchase_correlation_heatmap.png
+Correlation table with target 'Profit_YJ' saved to superstore_profit_correlation_sorted.csv
+Heatmap for Profit_YJ saved to superstore_profit_correlation_heatmap.png
+Correlation table with target 'purchase_amount_usd' saved to shopping_purchase_correlation_sorted.csv
+Heatmap for purchase_amount_usd saved to shopping_purchase_correlation_heatmap.png
+
+--- Superstore Data: Linear Regression ---
+Features used: Sales_Log, ShippingCost_Log, Quantity, Category_Technology, Sub-Category_Copiers, Discount
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+  Coefficients saved to superstore_data_lr_coefficients.json
+Model saved as superstore_lr_model.joblib
+ERROR: Missing data or features for Linear Regression training: Shopping Data
+Correlation table with target 'Profit_YJ' saved to superstore_profit_correlation_sorted.csv
+Heatmap for Profit_YJ saved to superstore_profit_correlation_heatmap.png
+Correlation table with target 'purchase_amount_usd' saved to shopping_purchase_correlation_sorted.csv
+Heatmap for purchase_amount_usd saved to shopping_purchase_correlation_heatmap.png
+
+--- Superstore Data: Linear Regression ---
+Features used: Sales_Log, ShippingCost_Log, Quantity, Category_Technology, Sub-Category_Copiers, Discount
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+  Coefficients saved to superstore_data_lr_coefficients.json
+Model saved as superstore_lr_model.joblib
+
+--- Shopping Data: Linear Regression ---
+Features used: review_rating, discount_applied_bin, promo_code_used_bin, age, previous_purchases, subscription_status_bin
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+  Coefficients saved to shopping_data_lr_coefficients.json
+Model saved as shopping_lr_model.joblib
+Correlation table with target 'Profit_YJ' saved to superstore_profit_correlation_sorted.csv
+Heatmap for Profit_YJ saved to superstore_profit_correlation_heatmap.png
+Correlation table with target 'purchase_amount_usd' saved to shopping_purchase_correlation_sorted.csv
+Heatmap for purchase_amount_usd saved to shopping_purchase_correlation_heatmap.png
+
+--- Superstore Data: Linear Regression ---
+Features used: Sales_Log, ShippingCost_Log, Quantity, Category_Technology, Sub-Category_Copiers, Discount
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+  Coefficients saved to superstore_data_lr_coefficients.json
+Model saved as superstore_lr_model.joblib
+
+--- Shopping Data: Linear Regression ---
+Features used: review_rating, discount_applied_bin, promo_code_used_bin, age, previous_purchases, subscription_status_bin
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+  Coefficients saved to shopping_data_lr_coefficients.json
+Model saved as shopping_lr_model.joblib
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow Method).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow Method).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2949
+  k=3 achieved Silhouette Score: 0.3200
+  k=4 achieved Silhouette Score: 0.3419
+  k=5 achieved Silhouette Score: 0.3676
+  k=6 achieved Silhouette Score: 0.3528
+  k=7 achieved Silhouette Score: 0.3082
+  k=8 achieved Silhouette Score: 0.3102
+  k=9 achieved Silhouette Score: 0.3147
+  k=10 achieved Silhouette Score: 0.3150
+Elbow Plot saved to kmeans_elbow_plot_superstore_customers.png
+Silhouette Plot saved to kmeans_silhouette_plot_superstore_customers.png
+Based on objective Silhouette Score, the best k is likely 5 (Score: 0.3676).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2949
+  k=3 achieved Silhouette Score: 0.3200
+  k=4 achieved Silhouette Score: 0.3419
+  k=5 achieved Silhouette Score: 0.3676
+  k=6 achieved Silhouette Score: 0.3528
+  k=7 achieved Silhouette Score: 0.3082
+  k=8 achieved Silhouette Score: 0.3102
+  k=9 achieved Silhouette Score: 0.3147
+  k=10 achieved Silhouette Score: 0.3150
+Based on objective Silhouette Score, the best k is likely 5 (Score: 0.3676).
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.3960
+  k=3 achieved Silhouette Score: 0.3534
+  k=4 achieved Silhouette Score: 0.2696
+  k=5 achieved Silhouette Score: 0.2693
+  k=6 achieved Silhouette Score: 0.2430
+  k=7 achieved Silhouette Score: 0.2559
+  k=8 achieved Silhouette Score: 0.2577
+  k=9 achieved Silhouette Score: 0.2595
+  k=10 achieved Silhouette Score: 0.2533
+Based on objective Silhouette Score, the best k is likely 2 (Score: 0.3960).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+ Clustering step skipped (RUN_CLUSTERING=False)
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+ Clustering step skipped (RUN_CLUSTERING=False)
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2949
+  k=3 achieved Silhouette Score: 0.3200
+  k=4 achieved Silhouette Score: 0.3419
+  k=5 achieved Silhouette Score: 0.3676
+  k=6 achieved Silhouette Score: 0.3528
+  k=7 achieved Silhouette Score: 0.3082
+  k=8 achieved Silhouette Score: 0.3102
+  k=9 achieved Silhouette Score: 0.3147
+  k=10 achieved Silhouette Score: 0.3150
+Based on objective Silhouette Score, the best k is likely 5 (Score: 0.3676).
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.3960
+  k=3 achieved Silhouette Score: 0.3534
+  k=4 achieved Silhouette Score: 0.2696
+  k=5 achieved Silhouette Score: 0.2693
+  k=6 achieved Silhouette Score: 0.2430
+  k=7 achieved Silhouette Score: 0.2559
+  k=8 achieved Silhouette Score: 0.2577
+  k=9 achieved Silhouette Score: 0.2595
+  k=10 achieved Silhouette Score: 0.2533
+Based on objective Silhouette Score, the best k is likely 2 (Score: 0.3960).
+Cluster Centroids (Scaled Feature Values):
+[[ 0.80047002  0.82540521  0.61444455 -0.49643312 -0.21285065 -0.21216132]
+ [ 1.13016932  1.06169158 -0.05416086  2.01437003  4.69812991 -0.12135249]
+ [ 0.70399849  0.65558945  0.06561335  2.01437003 -0.21285065 -0.11912983]
+ [-0.90196673 -0.83498911 -0.2795948  -0.36448821 -0.21285065  1.92177887]
+ [-0.72263703 -0.74143173 -0.41689578 -0.4805319  -0.21285065 -0.49289742]]
+Cluster Centroids (Scaled Feature Values):
+[[-0.01437527  1.15133896  1.15133896  0.00502709  0.02709918  0.80617041]
+ [ 0.0108445  -0.86855395 -0.86855395 -0.00379236 -0.02044324 -0.60816364]]
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2949
+  k=3 achieved Silhouette Score: 0.3200
+  k=4 achieved Silhouette Score: 0.3419
+  k=5 achieved Silhouette Score: 0.3676
+  k=6 achieved Silhouette Score: 0.3528
+  k=7 achieved Silhouette Score: 0.3082
+  k=8 achieved Silhouette Score: 0.3102
+  k=9 achieved Silhouette Score: 0.3147
+  k=10 achieved Silhouette Score: 0.3150
+Based on objective Silhouette Score, the best k is likely 5 (Score: 0.3676).
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.3960
+  k=3 achieved Silhouette Score: 0.3534
+  k=4 achieved Silhouette Score: 0.2696
+  k=5 achieved Silhouette Score: 0.2693
+  k=6 achieved Silhouette Score: 0.2430
+  k=7 achieved Silhouette Score: 0.2559
+  k=8 achieved Silhouette Score: 0.2577
+  k=9 achieved Silhouette Score: 0.2595
+  k=10 achieved Silhouette Score: 0.2533
+Based on objective Silhouette Score, the best k is likely 2 (Score: 0.3960).
+Cluster Centroids (Scaled Feature Values):
+[[ 0.80047002  0.82540521  0.61444455 -0.49643312 -0.21285065 -0.21216132]
+ [ 1.13016932  1.06169158 -0.05416086  2.01437003  4.69812991 -0.12135249]
+ [ 0.70399849  0.65558945  0.06561335  2.01437003 -0.21285065 -0.11912983]
+ [-0.90196673 -0.83498911 -0.2795948  -0.36448821 -0.21285065  1.92177887]
+ [-0.72263703 -0.74143173 -0.41689578 -0.4805319  -0.21285065 -0.49289742]]
+Cluster Centroids (Scaled Feature Values):
+[[-0.01437527  1.15133896  1.15133896  0.00502709  0.02709918  0.80617041]
+ [ 0.0108445  -0.86855395 -0.86855395 -0.00379236 -0.02044324 -0.60816364]]
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2949
+  k=3 achieved Silhouette Score: 0.3200
+  k=4 achieved Silhouette Score: 0.3419
+  k=5 achieved Silhouette Score: 0.3676
+  k=6 achieved Silhouette Score: 0.3528
+  k=7 achieved Silhouette Score: 0.3082
+  k=8 achieved Silhouette Score: 0.3102
+  k=9 achieved Silhouette Score: 0.3147
+  k=10 achieved Silhouette Score: 0.3150
+Based on objective Silhouette Score, the best k is likely 5 (Score: 0.3676).
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.3960
+  k=3 achieved Silhouette Score: 0.3534
+  k=4 achieved Silhouette Score: 0.2696
+  k=5 achieved Silhouette Score: 0.2693
+  k=6 achieved Silhouette Score: 0.2430
+  k=7 achieved Silhouette Score: 0.2559
+  k=8 achieved Silhouette Score: 0.2577
+  k=9 achieved Silhouette Score: 0.2595
+  k=10 achieved Silhouette Score: 0.2533
+Based on objective Silhouette Score, the best k is likely 2 (Score: 0.3960).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2949
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2949
+  k=3 achieved Silhouette Score: 0.3200
+  k=4 achieved Silhouette Score: 0.3419
+  k=5 achieved Silhouette Score: 0.3676
+  k=6 achieved Silhouette Score: 0.3528
+  k=7 achieved Silhouette Score: 0.3082
+  k=8 achieved Silhouette Score: 0.3102
+  k=9 achieved Silhouette Score: 0.3147
+  k=10 achieved Silhouette Score: 0.3150
+Based on objective Silhouette Score, the best k is likely 5 (Score: 0.3676).
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.3960
+  k=3 achieved Silhouette Score: 0.3534
+  k=4 achieved Silhouette Score: 0.2696
+  k=5 achieved Silhouette Score: 0.2693
+  k=6 achieved Silhouette Score: 0.2430
+  k=7 achieved Silhouette Score: 0.2559
+  k=8 achieved Silhouette Score: 0.2577
+  k=9 achieved Silhouette Score: 0.2595
+  k=10 achieved Silhouette Score: 0.2533
+Based on objective Silhouette Score, the best k is likely 2 (Score: 0.3960).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2949
+  k=3 achieved Silhouette Score: 0.3200
+  k=4 achieved Silhouette Score: 0.3419
+  k=5 achieved Silhouette Score: 0.3676
+  k=6 achieved Silhouette Score: 0.3528
+  k=7 achieved Silhouette Score: 0.3082
+  k=8 achieved Silhouette Score: 0.3102
+  k=9 achieved Silhouette Score: 0.3147
+  k=10 achieved Silhouette Score: 0.3150
+Based on objective Silhouette Score, the best k is likely 5 (Score: 0.3676).
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.3960
+  k=3 achieved Silhouette Score: 0.3534
+  k=4 achieved Silhouette Score: 0.2696
+  k=5 achieved Silhouette Score: 0.2693
+  k=6 achieved Silhouette Score: 0.2430
+  k=7 achieved Silhouette Score: 0.2559
+  k=8 achieved Silhouette Score: 0.2577
+  k=9 achieved Silhouette Score: 0.2595
+  k=10 achieved Silhouette Score: 0.2533
+Based on objective Silhouette Score, the best k is likely 2 (Score: 0.3960).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2949
+  k=3 achieved Silhouette Score: 0.3200
+  k=4 achieved Silhouette Score: 0.3419
+  k=5 achieved Silhouette Score: 0.3676
+  k=6 achieved Silhouette Score: 0.3528
+  k=7 achieved Silhouette Score: 0.3082
+  k=8 achieved Silhouette Score: 0.3102
+  k=9 achieved Silhouette Score: 0.3147
+  k=10 achieved Silhouette Score: 0.3150
+Based on objective Silhouette Score, the best k is likely 5 (Score: 0.3676).
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2763
+  k=3 achieved Silhouette Score: 0.1961
+  k=4 achieved Silhouette Score: 0.1994
+  k=5 achieved Silhouette Score: 0.1877
+  k=6 achieved Silhouette Score: 0.1921
+  k=7 achieved Silhouette Score: 0.1757
+  k=8 achieved Silhouette Score: 0.1792
+  k=9 achieved Silhouette Score: 0.1756
+  k=10 achieved Silhouette Score: 0.1850
+Based on objective Silhouette Score, the best k is likely 2 (Score: 0.2763).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2949
+  k=3 achieved Silhouette Score: 0.3200
+  k=4 achieved Silhouette Score: 0.3419
+  k=5 achieved Silhouette Score: 0.3676
+  k=6 achieved Silhouette Score: 0.3528
+  k=7 achieved Silhouette Score: 0.3082
+  k=8 achieved Silhouette Score: 0.3102
+  k=9 achieved Silhouette Score: 0.3147
+  k=10 achieved Silhouette Score: 0.3150
+Based on objective Silhouette Score, the best k is likely 5 (Score: 0.3676).
+Running K-Means for k=1 to 10 to find optimal k (Elbow & Silhouette).
+  k=2 achieved Silhouette Score: 0.2763
+  k=3 achieved Silhouette Score: 0.1961
+  k=4 achieved Silhouette Score: 0.1994
+  k=5 achieved Silhouette Score: 0.1877
+  k=6 achieved Silhouette Score: 0.1921
+  k=7 achieved Silhouette Score: 0.1757
+  k=8 achieved Silhouette Score: 0.1792
+  k=9 achieved Silhouette Score: 0.1756
+  k=10 achieved Silhouette Score: 0.1850
+Based on objective Silhouette Score, the best k is likely 2 (Score: 0.2763).
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+
+--- Superstore Profit/Loss: Gaussian Naive Bayes Classification ---
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+
+--- Superstore Profit/Loss: Gaussian Naive Bayes Classification ---
+Gaussian Naive Bayes Summary Metrics (Classes=2):
+  Test Accuracy: 0.9146
+  Test F1-Score (Macro Avg): 0.8835
+
+--- Shopping Cluster Prediction: Gaussian Naive Bayes Classification ---
+Gaussian Naive Bayes Summary Metrics (Classes=2):
+  Test Accuracy: 1.0000
+  Test F1-Score (Macro Avg): 1.0000
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+
+--- Superstore Profit/Loss: Gaussian Naive Bayes Classification ---
+Gaussian Naive Bayes Summary Metrics (Classes=2):
+  Test Accuracy: 0.9146
+  Test F1-Score (Macro Avg): 0.8835
+Generating Confusion Matrix for Gaussian NB...
+Confusion Matrix saved: confusion_matrix_superstore_data_Gaussian NB.png
+
+--- Shopping Cluster Prediction: Gaussian Naive Bayes Classification ---
+Gaussian Naive Bayes Summary Metrics (Classes=2):
+  Test Accuracy: 1.0000
+  Test F1-Score (Macro Avg): 1.0000
+Generating Confusion Matrix for Gaussian NB...
+Confusion Matrix saved: confusion_matrix_shopping_data_Gaussian NB.png
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Residual Plot saved: superstore_data_linear_regression_residuals.png
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Residual Plot saved: shopping_data_linear_regression_residuals.png
+
+--- Superstore Profit/Loss: Gaussian Naive Bayes Classification ---
+Gaussian Naive Bayes Summary Metrics (Classes=2):
+  Test Accuracy: 0.9146
+  Test F1-Score (Macro Avg): 0.8835
+Generating Confusion Matrix for Gaussian NB...
+Confusion Matrix saved: confusion_matrix_superstore_data_Gaussian NB.png
+
+--- Shopping Cluster Prediction: Gaussian Naive Bayes Classification ---
+Gaussian Naive Bayes Summary Metrics (Classes=2):
+  Test Accuracy: 1.0000
+  Test F1-Score (Macro Avg): 1.0000
+Generating Confusion Matrix for Gaussian NB...
+Confusion Matrix saved: confusion_matrix_shopping_data_Gaussian NB.png
+Linear Regression Results:
+  Test R2: 0.4362
+  Test RMSE: 28.8336
+  Test MAE: 22.3515
+  Test MSE: 831.3756
+Residual Plot saved: superstore_data_linear_regression_residuals.png
+Linear Regression Results:
+  Test R2: -0.0049
+  Test RMSE: 23.7135
+  Test MAE: 20.7166
+  Test MSE: 562.3286
+Residual Plot saved: shopping_data_linear_regression_residuals.png
+
+--- Superstore Profit/Loss: Gaussian Naive Bayes Classification ---
+Gaussian Naive Bayes Summary Metrics (Classes=2):
+  Test Accuracy: 0.9146
+  Test F1-Score (Macro Avg): 0.8835
+Generating Confusion Matrix for Gaussian NB...
+Confusion Matrix saved: confusion_matrix_superstore_data_Gaussian NB.png
+
+--- Shopping Cluster Prediction: Gaussian Naive Bayes Classification ---
+Gaussian Naive Bayes Summary Metrics (Classes=2):
+  Test Accuracy: 1.0000
+  Test F1-Score (Macro Avg): 1.0000
+Generating Confusion Matrix for Gaussian NB...
+Confusion Matrix saved: confusion_matrix_shopping_data_Gaussian NB.png

@@ -1,0 +1,9 @@
+Feature,Correlation_with_purchase_amount_usd
+purchase_amount_usd,1.0
+review_rating,0.030775923073914486
+customer_id,0.011047801208480165
+previous_purchases,0.008063412270587633
+subscription_status_bin,-0.006996040561291891
+age,-0.010423647378686554
+discount_applied_bin,-0.01779805469002319
+promo_code_used_bin,-0.01779805469002319

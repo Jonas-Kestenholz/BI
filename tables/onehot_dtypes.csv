@@ -1,0 +1,142 @@
+column,dtype
+customer_id,int64
+age,int64
+purchase_amount_usd,int64
+review_rating,float64
+previous_purchases,int64
+discount_applied_bin,int64
+promo_code_used_bin,int64
+subscription_status_bin,int64
+gender_Male,bool
+item_purchased_Belt,bool
+item_purchased_Blouse,bool
+item_purchased_Boots,bool
+item_purchased_Coat,bool
+item_purchased_Dress,bool
+item_purchased_Gloves,bool
+item_purchased_Handbag,bool
+item_purchased_Hat,bool
+item_purchased_Hoodie,bool
+item_purchased_Jacket,bool
+item_purchased_Jeans,bool
+item_purchased_Jewelry,bool
+item_purchased_Pants,bool
+item_purchased_Sandals,bool
+item_purchased_Scarf,bool
+item_purchased_Shirt,bool
+item_purchased_Shoes,bool
+item_purchased_Shorts,bool
+item_purchased_Skirt,bool
+item_purchased_Sneakers,bool
+item_purchased_Socks,bool
+item_purchased_Sunglasses,bool
+item_purchased_Sweater,bool
+item_purchased_T-shirt,bool
+category_Clothing,bool
+category_Footwear,bool
+category_Outerwear,bool
+location_Alaska,bool
+location_Arizona,bool
+location_Arkansas,bool
+location_California,bool
+location_Colorado,bool
+location_Connecticut,bool
+location_Delaware,bool
+location_Florida,bool
+location_Georgia,bool
+location_Hawaii,bool
+location_Idaho,bool
+location_Illinois,bool
+location_Indiana,bool
+location_Iowa,bool
+location_Kansas,bool
+location_Kentucky,bool
+location_Louisiana,bool
+location_Maine,bool
+location_Maryland,bool
+location_Massachusetts,bool
+location_Michigan,bool
+location_Minnesota,bool
+location_Mississippi,bool
+location_Missouri,bool
+location_Montana,bool
+location_Nebraska,bool
+location_Nevada,bool
+location_New Hampshire,bool
+location_New Jersey,bool
+location_New Mexico,bool
+location_New York,bool
+location_North Carolina,bool
+location_North Dakota,bool
+location_Ohio,bool
+location_Oklahoma,bool
+location_Oregon,bool
+location_Pennsylvania,bool
+location_Rhode Island,bool
+location_South Carolina,bool
+location_South Dakota,bool
+location_Tennessee,bool
+location_Texas,bool
+location_Utah,bool
+location_Vermont,bool
+location_Virginia,bool
+location_Washington,bool
+location_West Virginia,bool
+location_Wisconsin,bool
+location_Wyoming,bool
+size_M,bool
+size_S,bool
+size_XL,bool
+color_Black,bool
+color_Blue,bool
+color_Brown,bool
+color_Charcoal,bool
+color_Cyan,bool
+color_Gold,bool
+color_Gray,bool
+color_Green,bool
+color_Indigo,bool
+color_Lavender,bool
+color_Magenta,bool
+color_Maroon,bool
+color_Olive,bool
+color_Orange,bool
+color_Peach,bool
+color_Pink,bool
+color_Purple,bool
+color_Red,bool
+color_Silver,bool
+color_Teal,bool
+color_Turquoise,bool
+color_Violet,bool
+color_White,bool
+color_Yellow,bool
+season_Spring,bool
+season_Summer,bool
+season_Winter,bool
+subscription_status_Yes,bool
+payment_method_Cash,bool
+payment_method_Credit Card,bool
+payment_method_Debit Card,bool
+payment_method_PayPal,bool
+payment_method_Venmo,bool
+shipping_type_Express,bool
+shipping_type_Free Shipping,bool
+shipping_type_Next Day Air,bool
+shipping_type_Standard,bool
+shipping_type_Store Pickup,bool
+discount_applied_Yes,bool
+promo_code_used_Yes,bool
+preferred_payment_method_Cash,bool
+preferred_payment_method_Credit Card,bool
+preferred_payment_method_Debit Card,bool
+preferred_payment_method_PayPal,bool
+preferred_payment_method_Venmo,bool
+frequency_of_purchases_Fortnightly,bool
+frequency_of_purchases_Bi-Weekly,bool
+frequency_of_purchases_Monthly,bool
+frequency_of_purchases_Quarterly,bool
+frequency_of_purchases_Annually,bool
+spend_band_Mid,bool
+spend_band_High,bool
+spend_band_Top,bool
