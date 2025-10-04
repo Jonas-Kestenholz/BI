@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error, silhouette_score
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error 
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans 
@@ -21,33 +22,26 @@ import joblib
 
 # 1. PATH DEFINITION AND DIRECTORY SETUP
 # Assumes the script is inside BASE_DIR/scripts/
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(f"Project Root: {BASE_DIR}")
+SCRIPTS_DIR = os.path.dirname(os.path.abspath(__file__))
 
+ML_OUTPUT_DIR = os.path.join(SCRIPTS_DIR, '..', 'machine_learning')
+print(f"ML Output Root: {ML_OUTPUT_DIR}")
 
 # --- DATA DIRECTORIES ---
-DATA_DIR = os.path.join(BASE_DIR, "data")          # For raw data and class data
-PROC_DIR = os.path.join(DATA_DIR, "processed")     # For your cleaned PKL data
+DATA_DIR = os.path.join(SCRIPTS_DIR, "..", "data")
+PROC_DIR = os.path.join(DATA_DIR, "processed")    # For your cleaned PKL data
 os.makedirs(PROC_DIR, exist_ok=True) # Ensure processed exists if not created by a previous script
 
 # --- REPORT DIRECTORIES ---
-# The primary report folder (at the same level as 'scripts')
-REPORT_DIR = os.path.join(BASE_DIR, "reports")
-
-# Nested ML results folder
-ML_REPORT_DIR = os.path.join(REPORT_DIR, "machine_learning")
-os.makedirs(ML_REPORT_DIR, exist_ok=True)
 
 # Specific directories inside machine_learning/
-REPORT_FIG_DIR = os.path.join(ML_REPORT_DIR, "ml_results_diagrams")
-REPORT_PRINT_DIR = os.path.join(ML_REPORT_DIR, "ml_results_print") # Renamed from 'REPORT_TAB_DIR' for print/log data
-MODEL_DIR = os.path.join(ML_REPORT_DIR, "joblib")
-
-
+REPORT_FIG_DIR = os.path.join(ML_OUTPUT_DIR, "ml_results_diagrams")
+REPORT_PRINT_DIR = os.path.join(ML_OUTPUT_DIR, "ml_results_print")
+MODEL_DIR = os.path.join(ML_OUTPUT_DIR, "joblib")
 
 # Create all necessary directories
 os.makedirs(REPORT_FIG_DIR, exist_ok=True)
-os.makedirs(REPORT_PRINT_DIR, exist_ok=True) # Use the new print directory
+os.makedirs(REPORT_PRINT_DIR, exist_ok=True)
 os.makedirs(MODEL_DIR, exist_ok=True)
 
 
@@ -328,6 +322,55 @@ def train_and_evaluate_lr(df: pd.DataFrame, target: str, selected_features: list
         'Coefficients': feature_coeffs
     }
 
+def train_and_evaluate_rf_regressor(df: pd.DataFrame, target: str, selected_features: list, model_name: str, log_prefix: str):
+    """
+    Trains a Random Forest Regressor model and evaluates its performance.
+    """
+    print(f"\n--- {log_prefix}: Random Forest Regression ---")
+    
+    X = df[selected_features]
+    y = df[target]
+
+    # Split data (standard 80/20)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # Train the model (Brug 100 træer som standard)
+    rf_model = RandomForestRegressor(n_estimators=100, random_state=42, n_jobs=-1)
+    rf_model.fit(X_train, y_train)
+    y_pred_rf = rf_model.predict(X_test)
+
+    # Evaluate the model
+    rmse_rf = np.sqrt(mean_squared_error(y_test, y_pred_rf))
+    r2_rf = r2_score(y_test, y_pred_rf)
+    mae_rf = mean_absolute_error(y_test, y_pred_rf) 
+    
+    # Get feature importance
+    feature_importance = dict(zip(selected_features, rf_model.feature_importances_))
+    
+    # 5. Log results
+    savelog(f"Random Forest Regression Results:")
+    savelog(f"   Test R2: {r2_rf:.4f}")
+    savelog(f"   Test RMSE: {rmse_rf:.4f}")
+    savelog(f"   Test MAE: {mae_rf:.4f}")
+    
+    # Save feature importance (vigtigere end koefficienter her)
+    savejson(feature_importance, f"{log_prefix.lower().replace(' ', '_')}_rf_feature_importance.json")
+    print(f"   Feature Importance saved.")
+
+    # 6. Save the trained model
+    savemodel(rf_model, model_name)
+    print(f"Model saved as {model_name}")
+
+    # 7. Visualization: Residual Plot (Genbrug den du lavede)
+    plot_regression_residuals(
+        y_test=y_test, 
+        y_pred=y_pred_rf, 
+        data_name=log_prefix, 
+        model_type="Random Forest Regression"
+    )
+
+    return {'R2': r2_rf, 'RMSE': rmse_rf, 'Importance': feature_importance}
+
 TARGET_SUPERSTORE = 'Profit_YJ'
 TARGET_SHOPPING = 'purchase_amount_usd'
 
@@ -363,6 +406,14 @@ train_and_evaluate_lr(
         selected_features=SHOPPING_LR_FEATURES,
         model_name="shopping_lr_model.joblib",
         log_prefix="Shopping Data"
+)
+
+superstore_rf_metrics = train_and_evaluate_rf_regressor(
+    df=df_superstore.copy(), 
+    target=TARGET_SUPERSTORE, 
+    selected_features=SUPERSTORE_LR_FEATURES, 
+    model_name="superstore_rf_regressor_model.joblib",
+    log_prefix="Superstore Data"
 )
 
 # --- NEW CLUSTERING UTILITY FUNCTIONS ---
