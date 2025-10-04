@@ -1,14 +1,48 @@
 from data_loader import load_excel
+import os
+import re
+import json
+import joblib
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plot
 import seaborn as sns
-import os 
 from scipy.stats import yeojohnson
+from data_loader import load_excel
+
+# --- SETTING UP DIRECTORIES ---
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA_RAW_PATH = os.path.join(BASE_DIR, "data", "Global Superstore.xls")
+print(f"Project Root: {BASE_DIR}")
+
+# Figure output
+FIGURE_BASE = os.path.join(BASE_DIR, "figures")
+SUPERSTORE_FIG_DIR = os.path.join(FIGURE_BASE, "superstore_figures")
+os.makedirs(SUPERSTORE_FIG_DIR, exist_ok=True)
+
+# Data output (processed)
+DATA_DIR = os.path.join(BASE_DIR, "data", "processed")
+os.makedirs(DATA_DIR, exist_ok=True)
+
+def safe_filename(name: str) -> str:
+    s = str(name).replace("/", "_").replace("\\", "_")
+    s = re.sub(r'[^A-Za-z0-9._-]+', "_", s)
+    s = re.sub(r'_{2,}', "_", s).strip("_")
+    return s
+
+def savefig(name: str):
+    """Gem figur i figures/superstore_figures/ med sikkert filnavn."""
+    name = safe_filename(name)
+    path = os.path.join(SUPERSTORE_FIG_DIR, name)
+    plot.tight_layout()
+    plot.savefig(path, dpi=150, bbox_inches="tight")
+    plot.close()
+    print(f"[Figure saved] {path}")
 
 # --- 1. DATA COLLECTION AND INITIAL CLEANING ---
 
-data = load_excel("~/Desktop/BIexam/data/Global Superstore.xls")
+data = load_excel(DATA_RAW_PATH)
 
 colnames = data.columns.tolist()
 
@@ -52,7 +86,7 @@ for col in ['Profit', 'Sales', 'Shipping Cost']:
     sns.boxplot(y=data[col])
     plot.title(f'Boxplot of {col} (Raw Data)')
     plot.ylabel(col)
-    plot.show()
+    savefig(f"boxplot_raw_{col}.png")
 
 # --- 3. OUTLIER HANDLING (Capping using IQR method) ---
 
@@ -61,7 +95,6 @@ for col in ['Profit', 'Sales', 'Shipping Cost']:
 def cap_outliers(df, column):
     print(f"\nHandling Outliers for: {column} ---")
     
-
     #Calculate IQR bounds
     Q1 = df[column].quantile(0.25)
     Q3 = df[column].quantile(0.75)
@@ -81,32 +114,20 @@ def cap_outliers(df, column):
     sns.boxplot(y=df[column])
     plot.title(f'Boxplot of {column} (After Capping)')
     plot.ylabel(f'{column} (Capped)')
-    plot.show()
+    savefig(f"boxplot_capped_{column}.png")
     return df
 
-data = cap_outliers(data, 'Profit')
-data = cap_outliers(data, 'Sales')
-data = cap_outliers(data, 'Shipping Cost')
+for col in ['Profit', 'Sales', 'Shipping Cost']:
+    data = cap_outliers(data, col)
 
 # --- 4. SKEWNESS HANDLING (TRANSFORMATION) ---
 
-plot.figure(figsize=(8, 6))
-sns.histplot(data['Profit'], kde=True)
-plot.title('Distribution of Profit (Capped, BEFORE Transformation)')
-plot.xlabel('Profit (Capped)')
-plot.show()
-
-plot.figure(figsize=(8, 6))
-sns.histplot(data['Sales'], kde=True)
-plot.title('Distribution of Sales (Capped, BEFORE Transformation)')
-plot.xlabel('Sales (Capped)')
-plot.show()
-
-plot.figure(figsize=(8, 6))
-sns.histplot(data['Shipping Cost'], kde=True)
-plot.title('Distribution of Shipping Cost (Capped, BEFORE Transformation)')
-plot.xlabel('Shipping Cost (Capped)')
-plot.show()
+for col in ['Profit', 'Sales', 'Shipping Cost']:
+    plot.figure(figsize=(8, 6))
+    sns.histplot(data[col], kde=True)
+    plot.title(f'Distribution of {col} (Capped, BEFORE Transformation)')
+    plot.xlabel(col)
+    savefig(f"hist_before_{col}.png")
 
 #I look at a histogram of the capped numerical data.
 #Since we have with negative data in profits we apply Yeo-Johnson transformation
@@ -118,17 +139,13 @@ data['Sales_Log'] = np.log1p(data['Sales'])
 data['ShippingCost_Log'] = np.log1p(data['Shipping Cost'])
 
 #Visualize the transformed data
-plot.figure(figsize=(8, 6))
-sns.histplot(data['Profit_YJ'], kde=True)
-plot.title('Distribution of Profit (After Yeo-Johnson Transformation)')
-plot.xlabel('Profit (Yeo-Johnson Transformed)')
-plot.show()
-
-plot.figure(figsize=(8, 6))
-sns.histplot(data['Sales_Log'], kde=True)
-plot.title('Distribution of Sales (After Log1p Transformation)')
-plot.xlabel('Sales (Log Transformed)')
-plot.show()
+for col, label in zip(['Profit_YJ', 'Sales_Log', 'ShippingCost_Log'],
+                      ['Profit (YJ)', 'Sales (Log)', 'Shipping Cost (Log)']):
+    plot.figure(figsize=(8, 6))
+    sns.histplot(data[col], kde=True)
+    plot.title(f'Distribution of {label} (After Transformation)')
+    plot.xlabel(label)
+    savefig(f"hist_after_{col}.png")
 
 #I remove the untransformed columns to avoid multicollinearity
 data = data.drop(columns=['Profit', 'Sales', 'Shipping Cost'])
@@ -146,7 +163,6 @@ print(data[object_columns].nunique().sort_values(ascending=False))
 
 #We remove the columns with too many unique values
 data = data.drop(columns=['City', 'State', 'Country'])
-
 object_columns = data.select_dtypes(include=['object']).columns
 
 #Then some one-hot encoding
