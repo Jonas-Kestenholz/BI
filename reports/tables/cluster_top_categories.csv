@@ -1,5 +1,0 @@
-cluster,top_gender,top_category,top_season,top_subscription_status,top_discount_applied,top_promo_code_used,top_payment_method,top_frequency_of_purchases,top_location,top_size,top_color
-"(0, 'Male')",1677.0,,,,,,,,,,
-"(0, 'Female')",,,,,,,,,,,
-"(1, 'Male')",975.0,,,,,,,,,,
-"(1, 'Female')",1248.0,,,,,,,,,,
