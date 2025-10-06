@@ -537,7 +537,7 @@ def run_final_clustering(df: pd.DataFrame, X_scaled_df: pd.DataFrame, features: 
     
     # 3. Cluster Profiling: Define features dynamically
     if data_name == "Superstore Data":
-        profile_features = ['Sales_Log', 'Profit_YJ', 'Discount', 'Quantity', 'ShippingCost_Log', 'Category_Technology', 'Market_EU']
+        profile_features = ['Sales_Log', 'Profit_YJ', 'Discount', 'Quantity', 'ShippingCost_Log', 'Category_Technology', 'Market_EU', 'Segment_Corporate', 'Segment_Home Office']
     elif data_name == "Shopping Data":
         profile_features = ['purchase_amount_usd', 'review_rating', 'age', 'previous_purchases', 'subscription_status_bin']
     else:
@@ -583,7 +583,7 @@ SUPERSTORE_OPTIMAL_K = 5
 SHOPPING_OPTIMAL_K = 2 
 
 RUN_CLUSTERING = True             # True: Runs K-Optimal analysis. False: Skips K-Optimal analysis.
-LOAD_CLUSTERING_RESULTS = True   # True: Attempts to load final clustered data and skips all clustering steps if successful.
+LOAD_CLUSTERING_RESULTS = False   # True: Attempts to load final clustered data and skips all clustering steps if successful.
 
 
 SUPERSTORE_CLUSTERING_FEATURES = [
